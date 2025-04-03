@@ -1,0 +1,217 @@
+
+<!-- Feito por: Marília Donato e Gustavo Vieck -->
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Digit's Machine</title>
+    <style>
+        /* Definição de variáveis de cor para facilitar futuras alterações */
+        :root {
+            --cor-primaria: #0c0630;  /* Cor principal (usada no título, bordas, etc.) */
+            --cor-secundaria: #1b1b1b; /* Cor secundária (usada no texto) */
+            --cor-fundo: #f4f4f4;      /* Cor de fundo da página */
+            --cor-sucesso: #150958;    /* Cor de fundo do botão ao passar o mouse */
+            --cor-resposta: #fffcf9;   /* Cor de fundo para a resposta destacada */
+            --cor-texto-resposta: #0c0630; /* Cor do texto da resposta */
+            --cor-destaque: #0c0630;   /* Cor para destacar o texto nas opções */
+        }
+
+        /* Estilo geral para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;  /* Define a fonte como Arial */
+            background-color: var(--cor-fundo);  /* Define o fundo da página */
+            margin: 0;   /* Remove margens da página */
+            padding: 0;  /* Remove o preenchimento da página */
+            display: flex;   /* Utiliza Flexbox para centralizar conteúdo */
+            flex-direction: column;  /* Coloca os itens em coluna */
+            align-items: center;    /* Centraliza o conteúdo horizontalmente */
+            justify-content: center; /* Centraliza o conteúdo verticalmente */
+            height: 100vh; /* A altura será 100% da tela */
+            color: var(--cor-secundaria);  /* Define a cor do texto como a cor secundária */
+            background-image: url('https://via.placeholder.com/1200'); /* Exemplo de imagem de fundo */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Estilo do título (h1) */
+        h1 {
+            color: var(--cor-primaria);  /* Cor do título */
+            font-size: 2.5rem;  /* Tamanho da fonte */
+            margin-bottom: 20px;  /* Espaço abaixo do título */
+            text-align: center;  /* Centraliza o título */
+        }
+
+        /* Estilo para os subtítulos (h3) */
+        h3 {
+            font-size: 1.2rem;  /* Tamanho da fonte */
+            margin: 10px 0;  /* Espaço entre o subtítulo e o próximo item */
+            text-align: center;  /* Centraliza os subtítulos */
+        }
+
+        /* Container do conteúdo - Quadrado com bordas arredondadas */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);  /* Fundo branco com transparência */
+            padding: 30px;  /* Espaçamento interno */
+            border-radius: 10px;  /* Bordas arredondadas */
+            border: 2px solid var(--cor-primaria);  /* Borda colorida */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+            width: 90%;  /* Largura do container */
+            max-width: 600px;  /* Largura máxima do container */
+            text-align: center;  /* Centraliza todo o conteúdo dentro do container */
+            backdrop-filter: blur(10px);  /* Aplica um desfoque no fundo do container */
+        }
+
+        /* Estilo dos campos de entrada (input) e seleção (select) */
+        input{padding: 12px;  /* Preenchimento interno para os inputs */
+            width: 215px;  /* Largura dos campos */
+            font-size: 16px;  /* Tamanho da fonte */
+            border: 2px solid var(--cor-primaria);  /* Borda colorida */
+            border-radius: 5px;  /* Borda arredondada */
+            text-align: center;  /* Alinha o texto ao centro */
+            margin: 15px 0;  /* Espaço entre os campos */
+            transition: all 0.3s ease;  /* Transição suave */
+            display: block; /* Garante que cada campo ocupe a linha inteira */
+            margin-left: auto;
+            margin-right: auto; /* Garante centralização dos campos */
+            background-color: rgba(255, 255, 255, 0.7);  /* Fundo das caixas com transparência */
+        }
+        select {
+            padding: 12px;  /* Preenchimento interno para os inputs */
+            width: 240px;  /* Largura dos campos */
+            font-size: 16px;  /* Tamanho da fonte */
+            border: 2px solid var(--cor-primaria);  /* Borda colorida */
+            border-radius: 5px;  /* Borda arredondada */
+            text-align: center;  /* Alinha o texto ao centro */
+            margin: 15px 0;  /* Espaço entre os campos */
+            transition: all 0.3s ease;  /* Transição suave */
+            display: block; /* Garante que cada campo ocupe a linha inteira */
+            margin-left: auto;
+            margin-right: auto; /* Garante centralização dos campos */
+            background-color: rgba(255, 255, 255, 0.7);  /* Fundo das caixas com transparência */
+        }
+
+        /* Efeito de foco nos campos de entrada */
+        input:focus,
+        select:focus {
+            border-color: var(--cor-sucesso);  /* Muda a cor da borda ao focar */
+            outline: none;  /* Remove o contorno padrão */
+        }
+
+        /* Estilo do botão */
+        button {
+            background-color: var(--cor-primaria);  /* Cor de fundo do botão */
+            color: white;  /* Cor do texto */
+            border: none;  /* Remove borda do botão */
+            padding: 8px 16px;  /* Preenchimento do botão (mais estreito que os campos de entrada) */
+            font-size: 16px;  /* Tamanho da fonte */
+            border-radius: 5px;  /* Bordas arredondadas */
+            cursor: pointer;  /* Indica que é clicável */
+            transition: background-color 0.3s ease;  /* Transição suave ao passar o mouse */
+            display: block; /* Garante que o botão ocupe a linha inteira */
+            margin-left: auto;
+            margin-right: auto; /* Garante que o botão seja centralizado */
+        }
+
+        /* Estilo do botão ao passar o mouse (hover) */
+        button:hover {
+            background-color: var(--cor-sucesso);  /* Muda a cor ao passar o mouse */
+        }
+
+        /* Estilo para a resposta */
+        #resultado {
+            background-color: var(--cor-resposta);  /* Cor de fundo para a resposta */
+            color: var(--cor-texto-resposta);  /* Cor do texto */
+            font-size: 18px;  /* Tamanho do texto */
+            font-weight: bold;  /* Texto em negrito */
+            padding: 15px;  /* Preenchimento interno */
+            border-radius: 5px;  /* Bordas arredondadas */
+            margin-top: 20px;  /* Espaço acima da resposta */
+            text-align: center;  /* Centraliza o texto da resposta */
+            border: 2px solid var(--cor-primaria);  /* Borda da resposta */
+        }
+
+        /* Estilo para as opções do select */
+        select option {
+            font-weight: bold;  /* Deixa o texto das opções em negrito */
+            font-size: 18px;  /* Tamanho maior das opções */
+            color: var(--cor-destaque);  /* Cor do texto das opções */
+        }
+
+        /* Responsividade: Ajuste para telas menores */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;  /* Tamanho do título em telas pequenas */
+            }
+
+            input,
+            select,
+            button {
+                width: 200px;  /* Ajusta a largura dos campos para telas menores */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>V-Digit's Machine</h1>
+
+        <h3>Digite um número:</h3>
+        <input id="numero" type="text" placeholder="Ex: 1010">
+
+        <h3>Escolha a base do número inserido:</h3>
+        <select id="baseEntrada">
+            <option value="2">Binário</option>
+            <option value="8">Octal</option>
+            <option value="10" selected>Decimal</option>
+            <option value="16">Hexadecimal</option>
+        </select>
+
+        <h3>Escolha a base para conversão:</h3>
+        <select id="baseSaida">
+            <option value="2">Binário</option>
+            <option value="8">Octal</option>
+            <option value="10">Decimal</option>
+            <option value="16" selected>Hexadecimal</option>
+        </select>
+
+        <button onclick="converter()">Converter</button>
+
+        <h3>Resultado:</h3>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function converter() {
+            var numero = document.getElementById("numero").value.trim();
+            var baseEntrada = Number(document.getElementById("baseEntrada").value);
+            var baseSaida = Number(document.getElementById("baseSaida").value);
+
+            if (numero === "") {
+                alert("Por favor, insira um número!");
+                return;
+            }
+
+            var decimal;
+            try {
+                decimal = parseInt(numero, baseEntrada);
+
+                if (isNaN(decimal)) {
+                    throw new Error();
+                }
+            } catch {
+                alert("Número inválido para a base escolhida!");
+                return;
+            }
+
+            var resultadoConvertido = decimal.toString(baseSaida).toUpperCase();
+            document.getElementById("resultado").innerText = "Convertido: " + resultadoConvertido;
+        }
+    </script>
+</body>
+
+</html>

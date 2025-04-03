@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Simulador Finaceiro</h2>
+<br><br>
+
+    Insira a quantidade de hectares que você possui:
+    <input type="text" id="input_hectare" placeholder="Digite aqui">
+    <br><br>
+
+    Insira a quantidade de Cacau(kg) perdido por hectare na última safra pela instabilidade da umidade do solo:
+    <input type="text" id="input_cacau" placeholder="Digite aqui">
+    <br><br>
+
+    Insira o espaçamento entre as plantas(3x3 ou 4x3):
+    <input type="text" id="input_plantas" placeholder="Digite aqui">
+    <br>
+
+    <button onclick="calcular()">Calcular</button>
+
+
+    <div id="div_cacau"></div>
+</body>
+</html>
+<script>
+function calcular(){
+var hectare = Number(input_hectare.value)
+var cacauPerdido = Number(input_cacau.value)
+var plantas = input_plantas.value
+var valPlantas = 0
+
+
+
+if(plantas =='3x3'){
+valPlantas = 1111
+var totalPlantas = valPlantas * hectare
+var kgTotal = totalPlantas * 0.4
+var percentualPerda = cacauPerdido/kgTotal*100
+var perdaEvitada = cacauPerdido * 0.7 
+
+div_cacau.innerHTML = `
+     <br><h3>Resultados:</h3><br>
+    Produção estimada: ${kgTotal.toFixed(2)} kg<br>
+    Cacau perdido: ${cacauPerdido} kg<br>
+    Perda percentual: ${percentualPerda.toFixed(2)}%<br>
+    Perda evitada com a nossa aplicação: ${perdaEvitada.toFixed(2)} kg 
+            `;
+}
+
+
+
+else if(plantas == '4x3'){
+valPlantas = 833
+var totalPlantas = valPlantas * hectare
+var kgTotal = totalPlantas * 0.4
+var percentualPerda =  cacauPerdido/kgTotal*100
+var perdaEvitada = cacauPerdido * 0.7
+
+div_cacau.innerHTML = `
+     <br><h3>Resultados:</h3><br>
+    Produção estimada: ${kgTotal.toFixed(2)} kg<br>
+    Cacau perdido: ${cacauPerdido} kg<br>
+    Perda percentual: ${percentualPerda.toFixed(2)}%<br>
+    Perda evitada com a nossa aplicação: ${perdaEvitada.toFixed(2)} kg 
+             
+            `;
+}
+
+
+
+else {
+
+    div_cacau.innerHTML = `Espaçamento listado incorretamente`
+
+}
+
+
+}
+
+</script>
